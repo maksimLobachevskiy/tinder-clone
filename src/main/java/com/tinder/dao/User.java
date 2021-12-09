@@ -3,11 +3,16 @@ package com.tinder.dao;
 public class User {
     private Long id;
     private String name;
+    private Boolean choice;
     private int age;
     private Long groupId;
     private String login;
     private String password;
-
+    public User(Long id, String name,Boolean choice){
+        this.id = id;
+        this.name = name;
+        this.choice=choice;
+    }
     public User(Long id, String name, int age, Long groupId, String login, String password) {
         this.id = id;
         this.name = name;
@@ -23,6 +28,14 @@ public class User {
         this.groupId = groupId;
         this.login = login;
         this.password = password;
+    }
+
+    public Boolean getChoice() {
+        return choice;
+    }
+
+    public void setChoice(Boolean choice) {
+        this.choice = choice;
     }
 
     public Long getId() {
@@ -78,6 +91,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", choice='" + choice + '\'' +
                 ", age=" + age +
                 ", groupId=" + groupId +
                 ", login=" + login +

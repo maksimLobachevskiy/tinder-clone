@@ -11,24 +11,51 @@ import java.sql.*;
 import java.util.List;
 
 public class UserJdbcDao implements UserDao {
-//    private MysqlConnectionPoolDataSource source;
+    //    private MysqlConnectionPoolDataSource source;
     private PGPoolingDataSource source;
 
-/*    public UserJdbcDao() {
+    /*    public UserJdbcDao() {
+            try {
+                source = new MysqlConnectionPoolDataSource();
+                source.setServerName("localhost");
+                source.setPort(3306);
+                source.setDatabaseName("users");
+                source.setUser("root");
+                source.setPassword("root");
+                source.setAllowMultiQueries(true);
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }*/
+    @Override
+    public void update(User user) {
+        Connection connection = null;
         try {
-            source = new MysqlConnectionPoolDataSource();
-            source.setServerName("localhost");
-            source.setPort(3306);
-            source.setDatabaseName("users");
-            source.setUser("root");
-            source.setPassword("root");
-            source.setAllowMultiQueries(true);
+            connection = source.getConnection();
+            Statement statement = connection.createStatement();
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE public.users SET name=?, choice = ? WHERE (id = ?)");
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            preparedStatement.setLong(3, user.getId());
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setBoolean(2, user.getChoice());
+//            preparedStatement.setLong(4, user.getGroupId() );
+//            preparedStatement.setLong(5, user.getId() );
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
         }
-    }*/
-
+    }
     public UserJdbcDao() {
         source = new PGPoolingDataSource();
         source.setServerName("abul.db.elephantsql.com");
@@ -86,18 +113,20 @@ public class UserJdbcDao implements UserDao {
         try {
             connection = source.getConnection();
             Statement statement = connection.createStatement();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users.users WHERE id = ?");
-            //ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE id = 3");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM public.users WHERE id = ?");
             preparedStatement.setLong(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
                 long id = resultSet.getLong("id");
                 String name = resultSet.getString(2);
-                int age = resultSet.getInt("age");
-                Long groupId = resultSet.getLong("group_id");
-                String login = resultSet.getString("login");
-                String password = resultSet.getString("password");
-                return new User(id, name, age, groupId, login, password);
+                Boolean choice  = resultSet.getBoolean("choice");
+//                int age = resultSet.getInt("age");
+//                Long groupId = resultSet.getLong("group_id");
+//                String login = resultSet.getString("login");
+//                String password = resultSet.getString("password");
+                return new User(id, name,choice
+//                        , age, groupId, login, password
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -113,10 +142,7 @@ public class UserJdbcDao implements UserDao {
         return null;
     }
 
-    @Override
-    public void update(User user) {
 
-    }
 
     @Override
     public boolean delete(long id) {
