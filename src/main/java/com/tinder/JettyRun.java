@@ -1,10 +1,6 @@
 package com.tinder;
 
-import com.tinder.controller.FileServlet;
-import com.tinder.controller.HelloServlet;
-import com.tinder.controller.LoginFilter;
-import com.tinder.controller.LoginServlet;
-import com.tinder.controller.TemplateEngine;
+import com.tinder.controller.*;
 import com.tinder.dao.UserDao;
 import com.tinder.dao.UserJdbcDao;
 import org.eclipse.jetty.server.Server;
@@ -32,10 +28,10 @@ public class JettyRun {
 
     SessionHandler sessionHandler = new SessionHandler();
     handler.setSessionHandler(sessionHandler);
-
-
-    handler.addServlet(new ServletHolder(new HelloServlet(templateEngine)), "/hello");
     handler.addServlet(new ServletHolder(new LoginServlet(userDao, templateEngine)), "/");
+    handler.addServlet(new ServletHolder(new UsersServlet(templateEngine,userDao)), "/users");
+    handler.addServlet(new ServletHolder(new HelloServlet(templateEngine)), "/hello");
+
     handler.addServlet(new ServletHolder(new FileServlet()), "/assets/*");
     handler.addFilter(new FilterHolder(new LoginFilter()), "/*", EnumSet.of(DispatcherType.REQUEST));
 

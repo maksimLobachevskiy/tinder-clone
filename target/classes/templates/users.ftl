@@ -1,109 +1,59 @@
-<!doctype html>
-<html lang="en">
+<html >
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="img/favicon.ico">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Banners</title>
+    <style>
+        .image-to-show {
+            width: 400px;
+            height: 400px;
+            display: none;
 
-    <title>People list</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+        }
+        .active{
+            display: block;
+        }
+        .images-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: start;
+            margin-bottom: 40px;
+        }
+        .btn{
+            padding: 20px 130px;
+            border-radius: 4px;
+            text-decoration: none;
+            border-color: black;
 
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="css/style.css">
+        }
+        .btn-end{margin-right: 40px;
+            background-color: black;
+            color: white;
+        }
+        .btn-continue{
+            background-color: whitesmoke;
+            color: black;
+        }
+        .btn-wrapper{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+  p{text-align: center;}
+    </style>
 </head>
 <body>
-
-<div class="container">
-    <div class="row">
-        <div class="col-8 offset-2">
-            <div class="panel panel-default user_panel">
-                <div class="panel-heading">
-                    <h3 class="panel-title">User List</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="table-container">
-                        <table class="table-users table" border="0">
-                            <tbody>
-                            <tr>
-                                <td width="10">
-                                    <div class="avatar-img">
-                                        <img class="img-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhcCYW4QDWMOjOuUTxOd50KcJvK-rop9qE9zRltSbVS_bO-cfWA" />  
-                                    </div>
-
-                                </td>
-                                <td class="align-middle">
-                                    Herbert Hoover
-                                </td>
-                                <td class="align-middle">
-                                    Builder Sales Agent
-                                </td>
-                                <td  class="align-middle">
-                                    Last Login:  6/10/2017<br><small class="text-muted">5 days ago</small>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="10">
-                                    <div class="avatar-img">
-                                        <img class="img-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhcCYW4QDWMOjOuUTxOd50KcJvK-rop9qE9zRltSbVS_bO-cfWA" />  
-                                    </div>
-
-                                </td>
-                                <td class="align-middle">
-                                    Herbert Hoover
-                                </td>
-                                <td class="align-middle">
-                                    Builder Sales Agent
-                                </td>
-                                <td  class="align-middle">
-                                    Last Login:  6/10/2017<br><small class="text-muted">5 days ago</small>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="10">
-                                    <div class="avatar-img">
-                                        <img class="img-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhcCYW4QDWMOjOuUTxOd50KcJvK-rop9qE9zRltSbVS_bO-cfWA" />  
-                                    </div>
-
-                                </td>
-                                <td class="align-middle">
-                                    Herbert Hoover
-                                </td>
-                                <td class="align-middle">
-                                    Builder Sales Agent
-                                </td>
-                                <td  class="align-middle">
-                                    Last Login:  6/10/2017<br><small class="text-muted">5 days ago</small>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="10">
-                                    <div class="avatar-img">
-                                        <img class="img-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhcCYW4QDWMOjOuUTxOd50KcJvK-rop9qE9zRltSbVS_bO-cfWA" />  
-                                    </div>
-
-                                </td>
-                                <td class="align-middle">
-                                    Herbert Hoover
-                                </td>
-                                <td class="align-middle">
-                                    Builder Sales Agent
-                                </td>
-                                <td  class="align-middle">
-                                    Last Login:  6/10/2017<br><small class="text-muted">5 days ago</small>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="images-wrapper">
+    <img src="https://www.fillmurray.com/640/360
+" alt="image of game" class="image-to-show active" />
 </div>
+<p >test</p>
 
+<form action="/users" method="post" class="btn-wrapper">
+    <input type="submit" name="boolean" class="btn-end btn" value="NO"/>
+    <input type="submit"  name="boolean" class="btn-end btn" value="YES"/>
+</form>
 </body>
 </html>
