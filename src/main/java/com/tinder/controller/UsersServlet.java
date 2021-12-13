@@ -37,6 +37,7 @@ public class UsersServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println(userDao.read(1l));
         templateEngine.render("users.ftl", new HashMap<>(), resp);
 
     }

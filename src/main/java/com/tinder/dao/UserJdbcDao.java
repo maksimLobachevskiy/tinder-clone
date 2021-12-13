@@ -58,10 +58,10 @@ public class UserJdbcDao implements UserDao {
     }
     public UserJdbcDao() {
         source = new PGPoolingDataSource();
-        source.setServerName("abul.db.elephantsql.com");
-        source.setDatabaseName("zkclintw");
-        source.setUser("zkclintw");
-        source.setPassword("wMo3tYZx-7ofIHiRCezwRAXpz2e89MZY");
+        source.setServerName("ec2-34-194-123-31.compute-1.amazonaws.com");
+        source.setDatabaseName("dac72pqcr6247l");
+        source.setUser("dskpsysvgmljlv");
+        source.setPassword("d19f8917cae8cee43b36765e38c63081ab4cec34d7e50b537cbb16672068f56c");
         source.setMaxConnections(10);
     }
 
@@ -118,15 +118,17 @@ public class UserJdbcDao implements UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
                 long id = resultSet.getLong("id");
-                String name = resultSet.getString(2);
-                Boolean choice  = resultSet.getBoolean("choice");
+                String name = resultSet.getString("name");
+                Integer age = resultSet.getInt("age");
+                String email = resultSet.getString("email");
+                String url = resultSet.getString("url");
+                String password = resultSet.getString("password");
+//                Boolean choice  = resultSet.getBoolean("choice");
 //                int age = resultSet.getInt("age");
 //                Long groupId = resultSet.getLong("group_id");
 //                String login = resultSet.getString("login");
 //                String password = resultSet.getString("password");
-                return new User(id, name,choice
-//                        , age, groupId, login, password
-                );
+                return new User(id, name,age,email,url,password);
             }
         } catch (SQLException e) {
             e.printStackTrace();

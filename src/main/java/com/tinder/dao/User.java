@@ -8,6 +8,10 @@ public class User {
     private Long groupId;
     private String login;
     private String password;
+    private String email;
+    private String url;
+
+
     public User(Long id, String name,Boolean choice){
         this.id = id;
         this.name = name;
@@ -22,11 +26,12 @@ public class User {
         this.password = password;
     }
 
-    public User(String name, int age, Long groupId, String login, String password) {
+    public User(Long id,String name, int age, String email, String url, String password) {
+        this.id = id;
         this.name = name;
         this.age = age;
-        this.groupId = groupId;
-        this.login = login;
+        this.email = email;
+        this.url = url;
         this.password = password;
     }
 
