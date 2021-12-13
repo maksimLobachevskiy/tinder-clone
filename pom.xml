@@ -17,6 +17,8 @@
     </properties>
 
     <dependencies>
+<!--         https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-gpg-plugin -->
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
