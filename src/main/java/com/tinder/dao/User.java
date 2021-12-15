@@ -10,29 +10,33 @@ public class User {
     private String password;
     private String email;
     private String url;
+    private Integer count;
 
 
     public User(Long id, String name,Boolean choice){
         this.id = id;
         this.name = name;
         this.choice=choice;
+
     }
-    public User(Long id, String name, int age, Long groupId, String login, String password) {
+    public User(Long id, String name, int age, Long groupId, String login, String password,int count) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.groupId = groupId;
         this.login = login;
         this.password = password;
+this.count=count;
     }
 
-    public User(Long id,String name, int age, String email, String url, String password) {
+    public User(Long id,String name, int age, String email, String url, String password,int count) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.email = email;
         this.url = url;
         this.password = password;
+        this.count=count;
     }
 
     public Boolean getChoice() {
@@ -41,6 +45,14 @@ public class User {
 
     public void setChoice(Boolean choice) {
         this.choice = choice;
+    }
+
+    public Integer getCounter() {
+        return count;
+    }
+
+    public void setCounter(Integer counter) {
+        this.count = counter;
     }
 
     public Long getId() {

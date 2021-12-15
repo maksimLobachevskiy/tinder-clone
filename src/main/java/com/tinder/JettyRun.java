@@ -11,6 +11,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 import javax.servlet.DispatcherType;
 import java.util.EnumSet;
+import java.util.List;
 
 public class JettyRun {
   public static void main(String[] args) throws Exception {
@@ -23,8 +24,10 @@ public class JettyRun {
     System.out.println("PORT: " + port);
     Server server = new Server(port);
     ServletContextHandler handler = new ServletContextHandler();
-    final UserDao userDao = new UserJdbcDao();
+
+     UserDao userDao = new UserJdbcDao();
     TemplateEngine templateEngine = new TemplateEngine();
+
 
     SessionHandler sessionHandler = new SessionHandler();
     handler.setSessionHandler(sessionHandler);
