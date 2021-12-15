@@ -1,4 +1,4 @@
-<html >
+<html>
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -41,19 +41,22 @@
             justify-content: center;
             align-items: center;
         }
-  p{text-align: center;}
+        p{text-align: center;}
     </style>
 </head>
 <body>
+
+
 <div class="images-wrapper">
-    <img src="https://www.fillmurray.com/640/360
-" alt="image of game" class="image-to-show active" />
+        <img src="${userPhoto}" alt="image of game" class="image-to-show active" />
 </div>
-<p >test</p>
+<p>
+     <#if userName??>${userName}</#if>
+</p>
 
 <form action="/users" method="post" class="btn-wrapper">
     <input type="submit" name="boolean" class="btn-end btn" value="NO"/>
-    <input type="submit"  name="boolean" class="btn-end btn" value="YES"/>
+    <input type="submit"  name="boolean" class="btn-end continue" value="YES"/>
 </form>
 </body>
 </html>

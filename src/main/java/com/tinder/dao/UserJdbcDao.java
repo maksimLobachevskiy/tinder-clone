@@ -8,39 +8,36 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 import javax.sql.PooledConnection;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserJdbcDao implements UserDao {
-    //    private MysqlConnectionPoolDataSource source;
+
     private PGPoolingDataSource source;
+   private List<String> userInfo=new ArrayList<>(List.of( "Elena https://loremflickr.com/g/320/240/paris,girl/all"
+           ,"Antonia https://loremflickr.com/320/240/paris,girl/all"
+           ,"Vasya https://loremflickr.com/320/240"));
 
-    /*    public UserJdbcDao() {
-            try {
-                source = new MysqlConnectionPoolDataSource();
-                source.setServerName("localhost");
-                source.setPort(3306);
-                source.setDatabaseName("users");
-                source.setUser("root");
-                source.setPassword("root");
-                source.setAllowMultiQueries(true);
-
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }*/
+    public void setUserInf(List<String> userInfo) {
+        this.userInfo = userInfo;
+    }
+    @Override
+    public List<String> getAllUserInfo() {
+        return userInfo;
+    }
     @Override
     public void update(User user) {
         Connection connection = null;
         try {
             connection = source.getConnection();
             Statement statement = connection.createStatement();
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE public.users SET name=?, choice = ? WHERE (id = ?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE public.users SET name=?, choice = ?, count = ? WHERE (id = ?)");
 
-            preparedStatement.setLong(3, user.getId());
+            preparedStatement.setLong(4, user.getId());
             preparedStatement.setString(1, user.getName());
             preparedStatement.setBoolean(2, user.getChoice());
-//            preparedStatement.setLong(4, user.getGroupId() );
-//            preparedStatement.setLong(5, user.getId() );
+            preparedStatement.setLong(3, user.getCounter());
+
 
             preparedStatement.executeUpdate();
 
@@ -123,12 +120,13 @@ public class UserJdbcDao implements UserDao {
                 String email = resultSet.getString("email");
                 String url = resultSet.getString("url");
                 String password = resultSet.getString("password");
+                Integer count = resultSet.getInt("count");
 //                Boolean choice  = resultSet.getBoolean("choice");
 //                int age = resultSet.getInt("age");
 //                Long groupId = resultSet.getLong("group_id");
 //                String login = resultSet.getString("login");
 //                String password = resultSet.getString("password");
-                return new User(id, name,age,email,url,password);
+                return new User(id, name,age,email,url,password,count);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -175,7 +173,8 @@ public class UserJdbcDao implements UserDao {
                 Long groupId = resultSet.getLong("group_id");
                 String login = resultSet.getString("login");
                 String password = resultSet.getString("password");
-                return new User(id, name, age, groupId, login, password);
+                Integer count = resultSet.getInt("count");
+                return new User(id, name, age, groupId, login, password,count);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -189,5 +188,13 @@ public class UserJdbcDao implements UserDao {
             }
         }
         return null;
+    }
+
+    public List<String> getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(List<String> userInfo) {
+        this.userInfo = userInfo;
     }
 }
