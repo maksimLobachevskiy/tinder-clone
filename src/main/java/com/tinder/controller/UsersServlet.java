@@ -29,46 +29,39 @@ public class UsersServlet extends HttpServlet {
 
 
 
-        User user = userDao.read(1L);
+        User user = userDao.read(3L);
 
         selectionBoolean(req,resp,user);
 
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        templateEngine.render("users.ftl", new HashMap<>(), resp);
+        User user = userDao.read(3L);
+
+        selectionBoolean(req,resp,user);
+
 
     }
     private void selectionBoolean(HttpServletRequest req, HttpServletResponse resp,User user ){
         String booleanReq = req.getParameter("boolean");
 
-
-
-        if(user.getCounter()<userDao.getAllUserInfo().size()-1){
-            int counterUser= user.getCounter();
-
-            counterUser++;
-            user.setCounter(counterUser);
-
-
-        }else {
-            user.setCounter(0);
-            user.setChoice(false);
-        }
-        if (booleanReq.equals("YES")) {
-            user.setChoice(true);
-
-        } else {
-            user.setChoice(false);
-
-
-        }
-
-
-
-        userDao.update(user);
+if(booleanReq!=null){
+    if(user.getCounter()==null) {
+        user.setCounter(0);
         changeUser(req,resp,user);
+    }
 
+    if (booleanReq.equals("YES") ){
+        checkBtnValue(true,user);
+    }
+    if (booleanReq.equals("NO")) {
+        checkBtnValue(false,user);
+    }
+}
+
+            userDao.update(user);
+
+            changeUser(req,resp,user);
 
     }
     private void changeUser(HttpServletRequest req, HttpServletResponse resp,User user){
@@ -84,4 +77,18 @@ public class UsersServlet extends HttpServlet {
 
 
     }
+public void checkBtnValue(boolean bolValue,User user ){
+    if (user.getChoice()!=bolValue) {
+        user.setChoice(bolValue);
+        if(user.getCounter()<userDao.getAllUserInfo().size()-1){
+            int counterUser= user.getCounter();
+
+            counterUser++;
+            user.setCounter(counterUser);
+
+
+        }else{user.setCounter(0);
+
+        }}
+}
 }

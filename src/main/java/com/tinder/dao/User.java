@@ -19,23 +19,25 @@ public class User {
         this.choice=choice;
 
     }
-    public User(Long id, String name, int age, Long groupId, String login, String password,int count) {
+    public User(Long id, String name, int age, Long groupId, String login, String password,int count,Boolean choice) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.groupId = groupId;
         this.login = login;
         this.password = password;
+        this.choice=choice;
 this.count=count;
     }
 
-    public User(Long id,String name, int age, String email, String url, String password,int count) {
+    public User(Long id,String name, int age, String email, String url, String password,int count,Boolean choice) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.email = email;
         this.url = url;
         this.password = password;
+        this.choice=choice;
         this.count=count;
     }
 

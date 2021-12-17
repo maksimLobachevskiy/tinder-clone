@@ -16,7 +16,7 @@ public class UserJdbcDao implements UserDao {
     private PGPoolingDataSource source;
    private List<String> userInfo=new ArrayList<>(List.of( "Elena https://loremflickr.com/g/320/240/paris,girl/all"
            ,"Antonia https://loremflickr.com/320/240/paris,girl/all"
-           ,"Vasya https://loremflickr.com/320/240"));
+           ,"Vasya https://loremflickr.com/320/240/paris,girl/all"));
 
     public void setUserInf(List<String> userInfo) {
         this.userInfo = userInfo;
@@ -35,7 +35,7 @@ public class UserJdbcDao implements UserDao {
 
             preparedStatement.setLong(4, user.getId());
             preparedStatement.setString(1, user.getName());
-            preparedStatement.setBoolean(2, user.getChoice());
+            preparedStatement.setBoolean(2, user.getChoice()==null?false: user.getChoice());
             preparedStatement.setLong(3, user.getCounter());
 
 
@@ -121,12 +121,12 @@ public class UserJdbcDao implements UserDao {
                 String url = resultSet.getString("url");
                 String password = resultSet.getString("password");
                 Integer count = resultSet.getInt("count");
-//                Boolean choice  = resultSet.getBoolean("choice");
+                Boolean choice  = resultSet.getBoolean("choice");
 //                int age = resultSet.getInt("age");
 //                Long groupId = resultSet.getLong("group_id");
 //                String login = resultSet.getString("login");
 //                String password = resultSet.getString("password");
-                return new User(id, name,age,email,url,password,count);
+                return new User(id, name,age,email,url,password,count,choice);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -174,7 +174,8 @@ public class UserJdbcDao implements UserDao {
                 String login = resultSet.getString("login");
                 String password = resultSet.getString("password");
                 Integer count = resultSet.getInt("count");
-                return new User(id, name, age, groupId, login, password,count);
+                Boolean choice  = resultSet.getBoolean("choice");
+                return new User(id, name, age, groupId, login, password,count,choice);
             }
         } catch (SQLException e) {
             e.printStackTrace();
