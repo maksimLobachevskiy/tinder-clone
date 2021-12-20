@@ -1,30 +1,29 @@
 package com.tinder.dao;
 
 //import com.mysql.cj.jdbc.MysqlConnectionPoolDataSource;
+import com.tinder.entity.User;
 import org.postgresql.ds.PGPoolingDataSource;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-import javax.sql.PooledConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserJdbcDao implements UserDao {
+public class UserJdbcDao extends DaoImpl<User> implements Dao<User> {
 
-    private PGPoolingDataSource source;
-   private List<String> userInfo=new ArrayList<>(List.of( "Elena https://loremflickr.com/g/320/240/paris,girl/all"
-           ,"Antonia https://loremflickr.com/320/240/paris,girl/all"
-           ,"Vasya https://loremflickr.com/320/240"));
+   private List<User> userInfo=new ArrayList<>(List.of(
+           new User("Elena", "https://loremflickr.com/g/320/240/paris,girl/all"),
+                   new User("Antonia","https://loremflickr.com/320/240/paris,girl/all"),
+           new User("Vasya", "https://loremflickr.com/320/240")));
 
-    public void setUserInf(List<String> userInfo) {
+    public void setUserInf(List<User> userInfo) {
         this.userInfo = userInfo;
     }
+
     @Override
-    public List<String> getAllUserInfo() {
+    public List<User> getAllInfo() {
         return userInfo;
     }
+
     @Override
     public void update(User user) {
         Connection connection = null;
@@ -54,12 +53,13 @@ public class UserJdbcDao implements UserDao {
         }
     }
     public UserJdbcDao() {
-        source = new PGPoolingDataSource();
-        source.setServerName("ec2-34-194-123-31.compute-1.amazonaws.com");
-        source.setDatabaseName("dac72pqcr6247l");
-        source.setUser("dskpsysvgmljlv");
-        source.setPassword("d19f8917cae8cee43b36765e38c63081ab4cec34d7e50b537cbb16672068f56c");
-        source.setMaxConnections(10);
+      super();
+//        source = new PGPoolingDataSource();
+//        source.setServerName("ec2-34-194-123-31.compute-1.amazonaws.com");
+//        source.setDatabaseName("dac72pqcr6247l");
+//        source.setUser("dskpsysvgmljlv");
+//        source.setPassword("d19f8917cae8cee43b36765e38c63081ab4cec34d7e50b537cbb16672068f56c");
+//        source.setMaxConnections(10);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class UserJdbcDao implements UserDao {
             connection = source.getConnection();
             connection.setAutoCommit(false);
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "INSERT INTO users.users VALUES (name = ?, age = ?, groupId = ?, login = ?, password = ?)");
+                    "INSERT INTO public.users VALUES (name = ?, age = ?, groupId = ?, login = ?, password = ?)");
             //ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE id = 3");
             preparedStatement.setString(1, user.getName());
             preparedStatement.setLong(2, user.getAge());
@@ -144,10 +144,10 @@ public class UserJdbcDao implements UserDao {
 
 
 
-    @Override
-    public boolean delete(long id) {
-        return false;
-    }
+//    @Override
+//    public boolean delete(long id) {
+//        return false;
+//    }
 
     @Override
     public List<User> findAll() {
@@ -160,7 +160,7 @@ public class UserJdbcDao implements UserDao {
             connection = source.getConnection();
             Statement statement = connection.createStatement();
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "SELECT * FROM users.users WHERE login=? AND password=?");
+                    "SELECT * FROM public.users WHERE login=? AND password=?");
             //ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE id = 3");
             preparedStatement.setString(1, loginUser);
             preparedStatement.setString(2, passwordUser);
@@ -190,11 +190,11 @@ public class UserJdbcDao implements UserDao {
         return null;
     }
 
-    public List<String> getUserInfo() {
+    public List<User> getUserInfo() {
         return userInfo;
     }
 
-    public void setUserInfo(List<String> userInfo) {
+    public void setUserInfo(List<User> userInfo) {
         this.userInfo = userInfo;
     }
 }

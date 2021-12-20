@@ -1,8 +1,10 @@
 package com.tinder;
 
 import com.tinder.controller.*;
-import com.tinder.dao.UserDao;
+import com.tinder.dao.Dao;
+import com.tinder.dao.DaoImpl;
 import com.tinder.dao.UserJdbcDao;
+import com.tinder.entity.User;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.session.SessionHandler;
 import org.eclipse.jetty.servlet.FilterHolder;
@@ -11,7 +13,6 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 import javax.servlet.DispatcherType;
 import java.util.EnumSet;
-import java.util.List;
 
 public class JettyRun {
   public static void main(String[] args) throws Exception {
@@ -25,16 +26,16 @@ public class JettyRun {
     Server server = new Server(port);
     ServletContextHandler handler = new ServletContextHandler();
 
-     UserDao userDao = new UserJdbcDao();
+     Dao<User> dao = new UserJdbcDao();
     TemplateEngine templateEngine = new TemplateEngine();
 
 
     SessionHandler sessionHandler = new SessionHandler();
     handler.setSessionHandler(sessionHandler);
-    handler.addServlet(new ServletHolder(new LoginServlet(userDao, templateEngine)), "/");
-    handler.addServlet(new ServletHolder(new UsersServlet(templateEngine,userDao)), "/users");
+    handler.addServlet(new ServletHolder(new LoginServlet(dao, templateEngine)), "/");
+    handler.addServlet(new ServletHolder(new UsersServlet(templateEngine,dao)), "/users");
     handler.addServlet(new ServletHolder(new HelloServlet(templateEngine)), "/hello");
-
+    handler.addServlet(new ServletHolder(new UsersLike(templateEngine, dao)), "/like");
     handler.addServlet(new ServletHolder(new FileServlet()), "/assets/*");
     handler.addFilter(new FilterHolder(new LoginFilter()), "/*", EnumSet.of(DispatcherType.REQUEST));
 

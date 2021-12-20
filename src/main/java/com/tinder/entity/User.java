@@ -1,4 +1,4 @@
-package com.tinder.dao;
+package com.tinder.entity;
 
 public class User {
     private Long id;
@@ -28,6 +28,11 @@ public class User {
         this.password = password;
 this.count=count;
     }
+
+    public User(String name, String url) {
+        this.name = name;
+        this.url = url;
+    };
 
     public User(Long id,String name, int age, String email, String url, String password,int count) {
         this.id = id;
@@ -101,6 +106,18 @@ this.count=count;
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String pretty() {
+        return String.format("%s %s", getName(), getUrl());
     }
 
     @Override
