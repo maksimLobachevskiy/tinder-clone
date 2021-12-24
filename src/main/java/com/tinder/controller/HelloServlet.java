@@ -18,19 +18,9 @@ public class HelloServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        if (session != null) {
-            String login = (String) session.getAttribute("login");
-            if (login != null) {
-                HashMap<String, Object> data = new HashMap<>(3);
-                data.put("user", "user name");
-                templateEngine.render("hello.ftl", data, resp);
-                //req.getRequestDispatcher("/hello.ftl").forward(req, resp);
-            } else {
-                templateEngine.render("login.ftl", new HashMap<>(), resp);
-                //req.getRequestDispatcher("/index.ftl").forward(req, resp);
-            }
-        }
 
+        HashMap<String, Object> data = new HashMap<>(3);
+        data.put("test", "its work");
+        templateEngine.render("hello.ftl", data, resp);
     }
 }

@@ -1,7 +1,7 @@
 <html>
     <body>
         <p>
-            Hello <#if user??>${user}</#if>
+            Hello <#if test??>${test}</#if>
         </p>
     </body>
 </html>

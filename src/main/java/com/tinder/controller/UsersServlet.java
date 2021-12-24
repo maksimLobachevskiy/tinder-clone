@@ -27,8 +27,6 @@ public class UsersServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-
-
         User user = userDao.read(3L);
 
         selectionBoolean(req,resp,user);
@@ -36,6 +34,7 @@ public class UsersServlet extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("UsersServlet");
         User user = userDao.read(3L);
 
         selectionBoolean(req,resp,user);

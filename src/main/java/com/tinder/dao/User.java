@@ -110,11 +110,14 @@ this.count=count;
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", choice='" + choice + '\'' +
+                ", choice=" + choice +
                 ", age=" + age +
                 ", groupId=" + groupId +
-                ", login=" + login +
-                ", pass" + password +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", url='" + url + '\'' +
+                ", count=" + count +
                 '}';
     }
 }

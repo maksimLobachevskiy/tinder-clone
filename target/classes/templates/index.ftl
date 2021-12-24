@@ -1,10 +1,10 @@
 <html lang="en">
 <head>
     <!-- Bootstrap core CSS -->
-    <link href="/assets/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 
 <body>

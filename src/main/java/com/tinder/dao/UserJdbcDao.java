@@ -142,8 +142,6 @@ public class UserJdbcDao implements UserDao {
         return null;
     }
 
-
-
     @Override
     public boolean delete(long id) {
         return false;
@@ -160,7 +158,7 @@ public class UserJdbcDao implements UserDao {
             connection = source.getConnection();
             Statement statement = connection.createStatement();
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "SELECT * FROM users.users WHERE login=? AND password=?");
+                    "SELECT * FROM public.users where email = ? and password = ?");
             //ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE id = 3");
             preparedStatement.setString(1, loginUser);
             preparedStatement.setString(2, passwordUser);
@@ -168,14 +166,14 @@ public class UserJdbcDao implements UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
                 long id = resultSet.getLong("id");
-                String name = resultSet.getString(2);
+                String name = resultSet.getString("name");
                 int age = resultSet.getInt("age");
-                Long groupId = resultSet.getLong("group_id");
-                String login = resultSet.getString("login");
+                String email = resultSet.getString("email");
+                String url = resultSet.getString("url");
                 String password = resultSet.getString("password");
-                Integer count = resultSet.getInt("count");
                 Boolean choice  = resultSet.getBoolean("choice");
-                return new User(id, name, age, groupId, login, password,count,choice);
+                Integer count = resultSet.getInt("count");
+                return new User(id, name, age,email,url, password,count,choice);
             }
         } catch (SQLException e) {
             e.printStackTrace();
