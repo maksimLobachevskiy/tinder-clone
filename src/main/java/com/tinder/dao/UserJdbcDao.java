@@ -6,14 +6,14 @@ import org.postgresql.ds.PGPoolingDataSource;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class UserJdbcDao extends DaoImpl<User> implements Dao<User> {
 
-   private List<User> userInfo=new ArrayList<>(List.of(
-           new User("Elena", "https://loremflickr.com/g/320/240/paris,girl/all"),
-                   new User("Antonia","https://loremflickr.com/320/240/paris,girl/all"),
-           new User("Vasya", "https://loremflickr.com/320/240")));
+   private List<User> userInfo=new ArrayList<>(List.of());
 
     public void setUserInf(List<User> userInfo) {
         this.userInfo = userInfo;
@@ -21,7 +21,7 @@ public class UserJdbcDao extends DaoImpl<User> implements Dao<User> {
 
     @Override
     public List<User> getAllInfo() {
-        return userInfo;
+     return userInfo;
     }
 
     @Override
@@ -121,12 +121,13 @@ public class UserJdbcDao extends DaoImpl<User> implements Dao<User> {
                 String url = resultSet.getString("url");
                 String password = resultSet.getString("password");
                 Integer count = resultSet.getInt("count");
+                Boolean choice= resultSet.getBoolean("choice");
 //                Boolean choice  = resultSet.getBoolean("choice");
 //                int age = resultSet.getInt("age");
 //                Long groupId = resultSet.getLong("group_id");
 //                String login = resultSet.getString("login");
 //                String password = resultSet.getString("password");
-                return new User(id, name,age,email,url,password,count);
+                return new User(id, name,age,email,url,password,count,choice);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -151,6 +152,44 @@ public class UserJdbcDao extends DaoImpl<User> implements Dao<User> {
 
     @Override
     public List<User> findAll() {
+        Connection connection = null;
+        try {
+            connection = source.getConnection();
+            Statement statement = connection.createStatement();
+
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM users ");
+            List<User> usersList=new ArrayList<>(List.of());
+            while(resultSet.next()) {
+                long id = resultSet.getLong("id");
+                String name = resultSet.getString("name");
+                Integer age = resultSet.getInt("age");
+                String email = resultSet.getString("email");
+                String url = resultSet.getString("url");
+                String password = resultSet.getString("password");
+                Integer count = resultSet.getInt("count");
+                Boolean choice= resultSet.getBoolean("choice");
+//                Boolean choice  = resultSet.getBoolean("choice");
+//                int age = resultSet.getInt("age");
+//                Long groupId = resultSet.getLong("group_id");
+//                String login = resultSet.getString("login");
+//                String password = resultSet.getString("password");
+                usersList.add( new User(id, name,age,email,url,password,count,choice));
+
+            }
+
+            List<User> sorted = usersList.stream().sorted(Comparator.comparingLong(User::getId)).collect(Collectors.toList());
+            userInfo=sorted;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
         return null;
     }
     @Override

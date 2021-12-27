@@ -1,5 +1,7 @@
 package com.tinder.entity;
 
+import java.util.Objects;
+
 public class User {
     private Long id;
     private String name;
@@ -29,12 +31,9 @@ public class User {
 this.count=count;
     }
 
-    public User(String name, String url) {
-        this.name = name;
-        this.url = url;
-    };
 
-    public User(Long id,String name, int age, String email, String url, String password,int count) {
+
+    public User(Long id,String name, int age, String email, String url, String password,int count,Boolean choice) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -42,6 +41,7 @@ this.count=count;
         this.url = url;
         this.password = password;
         this.count=count;
+        this.choice = choice;
     }
 
     public Boolean getChoice() {
@@ -118,6 +118,19 @@ this.count=count;
 
     public String pretty() {
         return String.format("%s %s", getName(), getUrl());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(login, user.login) && Objects.equals(password, user.password) && Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, password, email);
     }
 
     @Override

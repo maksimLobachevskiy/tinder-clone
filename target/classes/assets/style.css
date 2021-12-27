@@ -5,7 +5,7 @@ body {
 
 body {
   display: -ms-flexbox;
-  display: flex;
+
   -ms-flex-align: center;
   align-items: center;
   padding-top: 40px;
@@ -369,3 +369,40 @@ input:focus{
   outline: none;
 }
 
+.image-to-show {
+  width: 400px;
+  height: 400px;
+  display: none;
+
+}
+.active{
+  display: block;
+}
+.images-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: start;
+  margin-bottom: 40px;
+}
+.btn{
+  padding: 20px 130px;
+  border-radius: 4px;
+  text-decoration: none;
+  border-color: black;
+
+}
+.btn-end{margin-right: 40px;
+  background-color: black;
+  color: white;
+}
+.btn-continue{
+  background-color: whitesmoke;
+  color: black;
+}
+.btn-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.userName{text-align: center;}
