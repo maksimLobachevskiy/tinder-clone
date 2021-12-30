@@ -28,7 +28,7 @@ public abstract class DaoImpl<T> implements Dao<T> {
   }
 
   @Override
-  public T read(Long id) {
+  public T read(int id) {
     return null;
   }
 
@@ -49,6 +49,11 @@ public abstract class DaoImpl<T> implements Dao<T> {
 
   @Override
   public T findByLoginPass(String login, String password) {
+    return null;
+  }
+
+  @Override
+  public List<T> getMessages(int recipient, int sender) {
     return null;
   }
 }

@@ -35,5 +35,25 @@ public class ChatJdbcDao extends DaoImpl<Message> implements Dao<Message> {
       e.printStackTrace();
     } return messages;
   }
+  public List<Message> getMessages(int recipient, int sender) {
+    Connection connection = null;
+    List<Message> messages = new ArrayList<>();
+    try {
+      connection = source.getConnection();
+      String sql = "SELECT * FROM public.chat WHERE chat.receiver=" + recipient + " AND chat.sender=" + sender;
+      ResultSet resultSet = connection.prepareStatement(sql).executeQuery();
+      while (resultSet.next()) {
+        int messageId = resultSet.getInt("id");
+        int recipientId = resultSet.getInt("receiver");
+        int senderId = resultSet.getInt("sender");
+        String message = resultSet.getString("text");
+        messages.add(new Message(messageId, message, senderId, recipientId));
+      }
+    } catch (SQLException exception) {
+      exception.printStackTrace();
+    }
+    return messages;
+  }
+
 
 }

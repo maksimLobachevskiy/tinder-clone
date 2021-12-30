@@ -24,7 +24,7 @@ public class UsersServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = userDao.read(1L);
+        User user = userDao.read(1);
         selectionBoolean(req,resp,user);
     }
     @Override
@@ -63,7 +63,7 @@ public class UsersServlet extends HttpServlet {
         ArrayList<String> nameUsers=new ArrayList<>();
         HashMap<String, Object> data=new HashMap<>();
         for(User user: userDao.getAllInfo()){
-            String[] s = user.split(" ");
+            String[] s = user.getName().split(" ");
             if(s[1].equals("true")){
                 nameUsers.add(s[0]);
             }

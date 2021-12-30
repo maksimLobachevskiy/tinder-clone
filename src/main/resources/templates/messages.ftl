@@ -1,3 +1,6 @@
+<#-- @ftlvariable name="recipient" type="entity.User" -->
+<#-- @ftlvariable name="messages" type="java.util.List<entity.Message>" -->
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -24,7 +27,7 @@
                 <div class="row header-one text-white p-1">
                     <div class="col-md-6 name pl-2">
                         <i class="fa fa-comment"></i>
-                        <h6 class="ml-1 mb-0">Ketty Peris</h6>
+                        <h6 class="ml-1 mb-0">${recipient}</h6>
                     </div>
                     <div class="col-md-6 options text-right pr-0">
                         <i class="fa fa-window-minimize hide-chat-box hover text-center pt-1"></i>
@@ -49,7 +52,7 @@
                     <ul class="p-0">
                         <li class="send-msg float-right mb-2">
                             <p class="pt-1 pb-1 pl-2 pr-2 m-0 rounded">
-                                Hii
+                                ${text}
                             </p>
                         </li>
                         <li class="receive-msg float-left mb-2">

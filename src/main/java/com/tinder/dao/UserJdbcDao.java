@@ -105,7 +105,7 @@ public class UserJdbcDao extends DaoImpl<User> implements Dao<User> {
     }
 
     @Override
-    public User read(Long userId) {
+    public User read(int userId) {
         Connection connection = null;
         try {
             connection = source.getConnection();
