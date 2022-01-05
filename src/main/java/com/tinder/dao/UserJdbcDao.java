@@ -1,15 +1,12 @@
 package com.tinder.dao;
 
-//import com.mysql.cj.jdbc.MysqlConnectionPoolDataSource;
 import com.tinder.entity.User;
-import org.postgresql.ds.PGPoolingDataSource;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class UserJdbcDao extends DaoImpl<User> implements Dao<User> {
 
@@ -54,12 +51,7 @@ public class UserJdbcDao extends DaoImpl<User> implements Dao<User> {
     }
     public UserJdbcDao() {
       super();
-//        source = new PGPoolingDataSource();
-//        source.setServerName("ec2-34-194-123-31.compute-1.amazonaws.com");
-//        source.setDatabaseName("dac72pqcr6247l");
-//        source.setUser("dskpsysvgmljlv");
-//        source.setPassword("d19f8917cae8cee43b36765e38c63081ab4cec34d7e50b537cbb16672068f56c");
-//        source.setMaxConnections(10);
+
     }
 
     @Override
@@ -70,7 +62,7 @@ public class UserJdbcDao extends DaoImpl<User> implements Dao<User> {
             connection.setAutoCommit(false);
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "INSERT INTO public.users VALUES (name = ?, age = ?, groupId = ?, login = ?, password = ?)");
-            //ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE id = 3");
+
             preparedStatement.setString(1, user.getName());
             preparedStatement.setLong(2, user.getAge());
             preparedStatement.setLong(3, user.getGroupId());
@@ -122,11 +114,6 @@ public class UserJdbcDao extends DaoImpl<User> implements Dao<User> {
                 String password = resultSet.getString("password");
                 Integer count = resultSet.getInt("count");
                 Boolean choice= resultSet.getBoolean("choice");
-//                Boolean choice  = resultSet.getBoolean("choice");
-//                int age = resultSet.getInt("age");
-//                Long groupId = resultSet.getLong("group_id");
-//                String login = resultSet.getString("login");
-//                String password = resultSet.getString("password");
                 return new User(id, name,age,email,url,password,count,choice);
             }
         } catch (SQLException e) {
@@ -145,13 +132,10 @@ public class UserJdbcDao extends DaoImpl<User> implements Dao<User> {
 
 
 
-//    @Override
-//    public boolean delete(long id) {
-//        return false;
-//    }
+
 
     @Override
-    public List<User> findAll() {
+    public List<User> findAll(User user) {
         Connection connection = null;
         try {
             connection = source.getConnection();
@@ -168,12 +152,11 @@ public class UserJdbcDao extends DaoImpl<User> implements Dao<User> {
                 String password = resultSet.getString("password");
                 Integer count = resultSet.getInt("count");
                 Boolean choice= resultSet.getBoolean("choice");
-//                Boolean choice  = resultSet.getBoolean("choice");
-//                int age = resultSet.getInt("age");
-//                Long groupId = resultSet.getLong("group_id");
-//                String login = resultSet.getString("login");
-//                String password = resultSet.getString("password");
-                usersList.add( new User(id, name,age,email,url,password,count,choice));
+              User newUser  =    new User(id, name,age,email,url,password,count,choice);
+                if(!user.equals(newUser)){
+                    usersList.add(newUser );
+                }
+
 
             }
 
@@ -200,7 +183,6 @@ public class UserJdbcDao extends DaoImpl<User> implements Dao<User> {
             Statement statement = connection.createStatement();
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "SELECT * FROM public.users WHERE login=? AND password=?");
-            //ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE id = 3");
             preparedStatement.setString(1, loginUser);
             preparedStatement.setString(2, passwordUser);
 
