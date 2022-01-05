@@ -5,7 +5,6 @@ import java.util.Objects;
 public class User {
     private Long id;
     private String name;
-    private Boolean choice;
     private int age;
     private Long groupId;
     private String login;
@@ -15,12 +14,6 @@ public class User {
     private Integer count;
 
 
-    public User(Long id, String name,Boolean choice){
-        this.id = id;
-        this.name = name;
-        this.choice=choice;
-
-    }
     public User(Long id, String name, int age, Long groupId, String login, String password,int count) {
         this.id = id;
         this.name = name;
@@ -33,7 +26,7 @@ this.count=count;
 
 
 
-    public User(Long id,String name, int age, String email, String url, String password,int count,Boolean choice) {
+    public User(Long id,String name, int age, String email, String url, String password,int count) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -41,16 +34,9 @@ this.count=count;
         this.url = url;
         this.password = password;
         this.count=count;
-        this.choice = choice;
+
     }
 
-    public Boolean getChoice() {
-        return choice;
-    }
-
-    public void setChoice(Boolean choice) {
-        this.choice = choice;
-    }
 
     public Integer getCounter() {
         return count;
@@ -138,7 +124,6 @@ this.count=count;
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", choice='" + choice + '\'' +
                 ", age=" + age +
                 ", groupId=" + groupId +
                 ", login=" + login +

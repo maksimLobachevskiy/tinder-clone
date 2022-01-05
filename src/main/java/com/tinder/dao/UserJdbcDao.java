@@ -27,12 +27,11 @@ public class UserJdbcDao extends DaoImpl<User> implements Dao<User> {
         try {
             connection = source.getConnection();
             Statement statement = connection.createStatement();
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE public.users SET name=?, choice = ?, count = ? WHERE (id = ?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE public.users SET name=?,  count = ? WHERE (id = ?)");
 
-            preparedStatement.setLong(4, user.getId());
+            preparedStatement.setLong(3, user.getId());
             preparedStatement.setString(1, user.getName());
-            preparedStatement.setBoolean(2, user.getChoice());
-            preparedStatement.setLong(3, user.getCounter());
+            preparedStatement.setLong(2, user.getCounter());
 
 
             preparedStatement.executeUpdate();
@@ -113,8 +112,8 @@ public class UserJdbcDao extends DaoImpl<User> implements Dao<User> {
                 String url = resultSet.getString("url");
                 String password = resultSet.getString("password");
                 Integer count = resultSet.getInt("count");
-                Boolean choice= resultSet.getBoolean("choice");
-                return new User(id, name,age,email,url,password,count,choice);
+
+                return new User(id, name,age,email,url,password,count);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -151,8 +150,8 @@ public class UserJdbcDao extends DaoImpl<User> implements Dao<User> {
                 String url = resultSet.getString("url");
                 String password = resultSet.getString("password");
                 Integer count = resultSet.getInt("count");
-                Boolean choice= resultSet.getBoolean("choice");
-              User newUser  =    new User(id, name,age,email,url,password,count,choice);
+
+              User newUser  =    new User(id, name,age,email,url,password,count);
                 if(!user.equals(newUser)){
                     usersList.add(newUser );
                 }

@@ -29,7 +29,7 @@ public class UsersServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = userDao.read(1L);
+        User user = userDao.read(3L);
         userDao.findAll( user);
         System.out.println(userDao.getAllInfo());
         selectionBoolean(req, resp, user);

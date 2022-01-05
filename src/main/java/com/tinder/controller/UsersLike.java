@@ -36,7 +36,7 @@ public class UsersLike extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> nameUsers = new ArrayList<>(List.of());
-        User user = userDao.read(1L);
+        User user = userDao.read(3L);
         HashMap<String, Object> data  ;
         likeDao.findAll(user);
         userDao.findAll(user);
