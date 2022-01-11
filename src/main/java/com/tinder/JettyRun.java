@@ -40,8 +40,7 @@ public class JettyRun {
     handler.addServlet(new ServletHolder(new HelloServlet(templateEngine)), "/hello");
     handler.addServlet(new ServletHolder(new UsersLike(templateEngine,userDao,likeDao)), "/like");
     handler.addServlet(new ServletHolder(new FileServlet()), "/assets/*");
-    handler.addFilter(new FilterHolder(new LoginFilter()), "/*", EnumSet.of(DispatcherType.REQUEST));
-
+    handler.addFilter(new FilterHolder(new LoginFilter(templateEngine,userDao)), "/*", EnumSet.of(DispatcherType.REQUEST));
 //        handler.addServlet(new ServletHolder(new UserServlet(userDao)), "/users");
 
 //        handler.addServlet(new ServletHolder(new LikeServlet(userDao)), "/liked");

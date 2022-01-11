@@ -29,10 +29,19 @@ public class UsersServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = userDao.read(3L);
-        userDao.findAll( user);
-        System.out.println(userDao.getAllInfo());
-        selectionBoolean(req, resp, user);
+        HttpSession session = req.getSession();
+        if(session != null) {
+            Long id =(long) session.getAttribute("id");
+            if(id != null) {
+                User user = userDao.read(id);
+                userDao.findAll( user);
+                selectionBoolean(req, resp, user);     } else {
+                req.getRequestDispatcher("/").forward(req, resp);
+            }}
+
+
+
+
 //        User user1 = userDao.read(1L);
 //        User user2 = userDao.read(2L);
 //        User user3 = userDao.read(3L);

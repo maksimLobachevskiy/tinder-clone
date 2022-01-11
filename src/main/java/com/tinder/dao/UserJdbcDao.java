@@ -181,21 +181,23 @@ public class UserJdbcDao extends DaoImpl<User> implements Dao<User> {
             connection = source.getConnection();
             Statement statement = connection.createStatement();
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "SELECT * FROM public.users WHERE login=? AND password=?");
+                    "SELECT * FROM public.users WHERE email=? AND password=?");
             preparedStatement.setString(1, loginUser);
             preparedStatement.setString(2, passwordUser);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()) {
-                long id = resultSet.getLong("id");
-                String name = resultSet.getString(2);
-                int age = resultSet.getInt("age");
-                Long groupId = resultSet.getLong("group_id");
-                String login = resultSet.getString("login");
-                String password = resultSet.getString("password");
-                Integer count = resultSet.getInt("count");
-                return new User(id, name, age, groupId, login, password,count);
-            }
+
+                while(resultSet.next()) {
+                    long id = resultSet.getLong("id");
+                    String name = resultSet.getString("name");
+                    Integer age = resultSet.getInt("age");
+                    String email = resultSet.getString("email");
+                    String url = resultSet.getString("url");
+                    String password = resultSet.getString("password");
+                    Integer count = resultSet.getInt("count");
+
+                    return new User(id, name,age,email,url,password,count);
+                }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
