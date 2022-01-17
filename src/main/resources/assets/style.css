@@ -406,3 +406,52 @@ input:focus{
   align-items: center;
 }
 .userName{text-align: center;}
+.user_block{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user{    width: 315px;
+  margin: 30px;
+  display: flex;
+  height: 150px;
+  border: 9px solid gainsboro;
+
+}
+.user_img{
+  cursor:pointer;
+}
+.button-footer-form{
+  padding: 16px 40px;
+  background-color: #c66363;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #FFFFFF;
+  border: none;
+  position: fixed;
+  right: 10px;
+  font-weight: 600;
+}
+
+
+.button-footer-form:hover{
+  background: #810127;
+  transition: background 0.5s;
+}
+.user_capture{
+  margin: 0;
+  width: 100%;
+  padding-left: 20px;
+  font-weight: 900;
+  font-size: 25px;
+  background: lavenderblush;
+  color: slategray;
+}
+.like_title{
+  text-align: center;
+
+  word-spacing: 15px;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  font-weight: 500;
+}

@@ -35,6 +35,7 @@ public class UsersServlet extends HttpServlet {
             if(id != null) {
                 User user = userDao.read(id);
                 userDao.findAll( user);
+
                 selectionBoolean(req, resp, user);     } else {
                 req.getRequestDispatcher("/").forward(req, resp);
             }}

@@ -41,7 +41,7 @@ public class UsersLike extends HttpServlet {
             Long id =(long) session.getAttribute("id");
             if(id != null) {
                 User user = userDao.read(id);
-                List<String> nameUsers = new ArrayList<>(List.of());
+                List<User> nameUsers = new ArrayList<>(List.of());
 
                 HashMap<String, Object> data  ;
                 likeDao.findAll(user);
@@ -50,7 +50,7 @@ public class UsersLike extends HttpServlet {
 
 
                 filterCol.forEach(f ->{
-                    userDao.getAllInfo().stream().filter(s -> s.getId()== f.getWhom_id()).forEach(s -> nameUsers.add(s.getName()));
+                    userDao.getAllInfo().stream().filter(s -> s.getId()== f.getWhom_id()).forEach(s -> nameUsers.add(s));
                 });
                 if (nameUsers.size() == 0) {
                     try {
@@ -59,7 +59,7 @@ public class UsersLike extends HttpServlet {
                         e.printStackTrace();
                     }
                 } else {
-                    List<String> distList  =nameUsers.stream().distinct().collect(Collectors.toList());
+                    List<User> distList  =nameUsers.stream().distinct().collect(Collectors.toList());
                     data = new HashMap<>(Collections.singletonMap("users", distList));
                     templateEngine.render("like.ftl", data, resp);
 
