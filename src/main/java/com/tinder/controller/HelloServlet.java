@@ -18,17 +18,22 @@ public class HelloServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        HashMap<String, Object> data = new HashMap<>(3);
+//        data.put("user", "user name");
+//        templateEngine.render("hello.ftl", data, resp);
+
         HttpSession session = req.getSession();
         if (session != null) {
-            String login = (String) session.getAttribute("login");
-            if (login != null) {
+            Long id =(long) session.getAttribute("id");
+            System.out.println(id);
+            if (id != null) {
                 HashMap<String, Object> data = new HashMap<>(3);
                 data.put("user", "user name");
                 templateEngine.render("hello.ftl", data, resp);
                 //req.getRequestDispatcher("/hello.ftl").forward(req, resp);
             } else {
-                templateEngine.render("login.ftl", new HashMap<>(), resp);
-                //req.getRequestDispatcher("/index.ftl").forward(req, resp);
+//                templateEngine.render("login.ftl", new HashMap<>(), resp);
+                req.getRequestDispatcher("/").forward(req, resp);
             }
         }
 

@@ -1,8 +1,10 @@
 package com.tinder;
 
 import com.tinder.controller.*;
-import com.tinder.dao.UserDao;
-import com.tinder.dao.UserJdbcDao;
+import com.tinder.dao.*;
+import com.tinder.entity.Like;
+import com.tinder.entity.Message;
+import com.tinder.entity.User;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.session.SessionHandler;
 import org.eclipse.jetty.servlet.FilterHolder;
@@ -11,7 +13,6 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 import javax.servlet.DispatcherType;
 import java.util.EnumSet;
-import java.util.List;
 
 public class JettyRun {
   public static void main(String[] args) throws Exception {
@@ -25,19 +26,22 @@ public class JettyRun {
     Server server = new Server(port);
     ServletContextHandler handler = new ServletContextHandler();
 
-     UserDao userDao = new UserJdbcDao();
+     Dao<User> userDao = new UserJdbcDao();
+     Dao<Like> likeDao= new LikejdbcDao();
+    Dao<Message> chatDao= new ChatJdbcDao();
     TemplateEngine templateEngine = new TemplateEngine();
 
 
     SessionHandler sessionHandler = new SessionHandler();
     handler.setSessionHandler(sessionHandler);
     handler.addServlet(new ServletHolder(new LoginServlet(userDao, templateEngine)), "/");
-    handler.addServlet(new ServletHolder(new UsersServlet(templateEngine,userDao)), "/users");
+    handler.addServlet(new ServletHolder(new LogoutServlet(templateEngine)),"/logout");
+    handler.addServlet(new ServletHolder(new UsersServlet(templateEngine,userDao,likeDao)), "/users");
     handler.addServlet(new ServletHolder(new HelloServlet(templateEngine)), "/hello");
-//    handler.addServlet(new ServletHolder(new UsersLike(templateEngine)), "/like");
+    handler.addServlet(new ServletHolder(new UsersLike(templateEngine,userDao,likeDao)), "/like");
+    handler.addServlet(new ServletHolder(new ChatServlet(templateEngine, chatDao, userDao)), "/message/*");
     handler.addServlet(new ServletHolder(new FileServlet()), "/assets/*");
-    handler.addFilter(new FilterHolder(new LoginFilter()), "/*", EnumSet.of(DispatcherType.REQUEST));
-
+    handler.addFilter(new FilterHolder(new LoginFilter(templateEngine,userDao)), "/*", EnumSet.of(DispatcherType.REQUEST));
 //        handler.addServlet(new ServletHolder(new UserServlet(userDao)), "/users");
 
 //        handler.addServlet(new ServletHolder(new LikeServlet(userDao)), "/liked");

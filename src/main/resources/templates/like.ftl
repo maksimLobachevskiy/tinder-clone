@@ -1,63 +1,44 @@
 <html>
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Banners</title>
-    <style>
-        .image-to-show {
-            width: 400px;
-            height: 400px;
-            display: none;
-
-        }
-        .active{
-            display: block;
-        }
-        .images-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: start;
-            margin-bottom: 40px;
-        }
-        .btn{
-            padding: 20px 130px;
-            border-radius: 4px;
-            text-decoration: none;
-            border-color: black;
-
-        }
-        .btn-end{margin-right: 40px;
-            background-color: black;
-            color: white;
-        }
-        .btn-continue{
-            background-color: whitesmoke;
-            color: black;
-        }
-        .btn-wrapper{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        p{text-align: center;}
-    </style>
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/bootstrap.min.css">
 </head>
 <body>
+<header>
+    <img class="mb-4 logo"  src="https://cdn.worldvectorlogo.com/logos/tinder-2.svg" alt="" width="72" height="72">
+</header>
 
+<#if users??><h1 class="like_title">You have liked these users! </h1></#if>
 
-<div class="images-wrapper">
-        <img src="${userPhoto}" alt="image of game" class="image-to-show active" />
+<div>
+    <a class="button-footer-form" href="/logout" type="button" value="Exit">Exit</a>
 </div>
-<p>
-     <#if userName??>${userName}</#if>
-</p>
 
-<ul>
-    <#list father as item>
-        <li>${item}</li>
+
+<div class="user_block">
+    <div class="row gx-5">
+    <#list users as user>
+
+            <div class="col-6 mt-5">
+        <div class="user">
+            <img class="user_img" src=${user.url} alt=`тут должно быть фото`/>
+            <p class="user_capture">${user.name}</p>
+        </div>
+        <div class="mt-2"> <form method="post">
+                <button class="btn btn-danger btn-lg" type="submit">Send message</button>
+                <input type="hidden" name="name" value="${user.id}">
+            </form>
+        </div>
+            </div>
+
     </#list>
-</ul>
+    </div>
+</div>
+
+
 </body>
 </html>

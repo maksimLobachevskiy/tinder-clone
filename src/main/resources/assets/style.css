@@ -250,7 +250,7 @@ input:focus{
   width: 500px;
 }
 .header-one{
-  background: #404040;
+  background: #E45671;
 }
 .name h6{
   display: inline-block;
@@ -279,7 +279,7 @@ input:focus{
   transform: rotate(40deg);
 }
 .header-two{
-  border-top: 2px solid #35AC19;
+  border-top: 2px solid darkred;
   background: #ECEFF1;
   color: #5E6060;
   padding: 8px 0px 4px 8px;
@@ -312,6 +312,13 @@ input:focus{
 .send-msg{
   position: relative;
 }
+
+.back-btn {
+width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .send-msg:after{
   content: "";
   width:0;
@@ -368,6 +375,7 @@ input:focus{
 .msg-box input:focus{
   outline: none;
 }
+
 .image-to-show {
   width: 400px;
   height: 400px;
@@ -405,3 +413,64 @@ input:focus{
   align-items: center;
 }
 .userName{text-align: center;}
+.user_block{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user{    width: 315px;
+
+  display: flex;
+  height: 150px;
+  border: 9px solid gainsboro;
+
+}
+
+header {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto;
+}
+
+.user_img{
+  cursor:pointer;
+}
+.button-footer-form{
+  padding: 16px 40px;
+  background-color: #c66363;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #FFFFFF;
+  border: none;
+  position: fixed;
+  right: 10px;
+  font-weight: 600;
+}
+
+
+.button-footer-form:hover{
+  background: #810127;
+  transition: background 0.5s;
+}
+.user_capture{
+  margin: 0;
+  width: 100%;
+  padding-left: 20px;
+  font-weight: 900;
+  font-size: 25px;
+  background: lavenderblush;
+  color: slategray;
+}
+.like_title{
+  text-align: center;
+
+  word-spacing: 15px;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  font-weight: 500;
+}
