@@ -1,9 +1,10 @@
 package com.tinder.entity;
 
+import java.util.Objects;
+
 public class User {
     private Long id;
     private String name;
-    private Boolean choice;
     private int age;
     private Long groupId;
     private String login;
@@ -12,14 +13,14 @@ public class User {
     private String url;
     private Integer count;
 
-
-    public User(Long id, String name,Boolean choice){
+    public User(Long id, String name, String password, String url) {
         this.id = id;
         this.name = name;
-        this.choice=choice;
-
+        this.password = password;
+        this.url = url;
     }
-    public User(Long id, String name, int age, Long groupId, String login, String password,int count) {
+
+    public User(Long id, String name, int age, Long groupId, String login, String password, int count) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -29,10 +30,7 @@ public class User {
 this.count=count;
     }
 
-    public User(String name, String url) {
-        this.name = name;
-        this.url = url;
-    };
+
 
     public User(Long id,String name, int age, String email, String url, String password,int count) {
         this.id = id;
@@ -42,15 +40,9 @@ this.count=count;
         this.url = url;
         this.password = password;
         this.count=count;
+
     }
 
-    public Boolean getChoice() {
-        return choice;
-    }
-
-    public void setChoice(Boolean choice) {
-        this.choice = choice;
-    }
 
     public Integer getCounter() {
         return count;
@@ -121,11 +113,23 @@ this.count=count;
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(login, user.login) && Objects.equals(password, user.password) && Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, password, email);
+    }
+
+    @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", choice='" + choice + '\'' +
                 ", age=" + age +
                 ", groupId=" + groupId +
                 ", login=" + login +

@@ -1,16 +1,35 @@
 package com.tinder.entity;
 
+import java.time.LocalDate;
+
 public class Message {
   private int id;
   private String message;
   private int senderId;
   private int recipientId;
+  private LocalDate date;
 
-  public Message(int id, String message, int senderId, int recipientId) {
+  public Message(int id, String message, int senderId, int recipientId, LocalDate date) {
     this.id = id;
     this.message = message;
     this.senderId = senderId;
     this.recipientId = recipientId;
+    this.date = date;
+  }
+
+  public Message(int senderId, int recipientId, String message, LocalDate date) {
+    this.message = message;
+    this.senderId = senderId;
+    this.recipientId = recipientId;
+    this.date = date;
+  }
+
+  public LocalDate getDate() {
+    return date;
+  }
+
+  public void setDate(LocalDate date) {
+    this.date = date;
   }
 
   public int getId() {
@@ -52,6 +71,8 @@ public class Message {
             ", message='" + message + '\'' +
             ", senderId=" + senderId +
             ", recipientId=" + recipientId +
+            ", date=" + date +
             '}';
   }
+
 }

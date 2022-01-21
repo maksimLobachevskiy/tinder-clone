@@ -1,8 +1,10 @@
 package com.tinder.dao;
 
+import com.tinder.entity.User;
 import org.postgresql.ds.PGPoolingDataSource;
 
 import java.util.List;
+import java.util.Optional;
 
 public abstract class DaoImpl<T> implements Dao<T> {
   //private Class<T> type;
@@ -28,7 +30,7 @@ public abstract class DaoImpl<T> implements Dao<T> {
   }
 
   @Override
-  public T read(int id) {
+  public T read(Long id) {
     return null;
   }
 
@@ -43,7 +45,7 @@ public abstract class DaoImpl<T> implements Dao<T> {
   }
 
   @Override
-  public List<T> findAll() {
+  public List<T> findAll(User user) {
     return null;
   }
 
@@ -53,7 +55,12 @@ public abstract class DaoImpl<T> implements Dao<T> {
   }
 
   @Override
-  public List<T> getMessages(int recipient, int sender) {
+  public List<T> getMessages(int from, int to) {
     return null;
+  }
+
+  @Override
+  public void insert(T t) {
+
   }
 }
