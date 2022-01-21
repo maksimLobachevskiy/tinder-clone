@@ -20,10 +20,10 @@ public class JettyRun {
     String dbUrl = System.getenv("JDBC_DATABASE_URL");
     String username = System.getenv("JDBC_DATABASE_USERNAME");
     String password = System.getenv("JDBC_DATABASE_PASSWORD");
-    portStr = portStr == null ? "8088" : portStr;
+    portStr = portStr == null ? "5000" : portStr;
     Integer port = Integer.parseInt(portStr);
     System.out.println("PORT: " + port);
-    Server server = new Server(HerokuEnv.port());
+    Server server = new Server(port);
     ServletContextHandler handler = new ServletContextHandler();
 
      Dao<User> userDao = new UserJdbcDao();
