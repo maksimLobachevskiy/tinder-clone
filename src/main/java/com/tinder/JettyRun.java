@@ -23,7 +23,7 @@ public class JettyRun {
     portStr = portStr == null ? "8088" : portStr;
     Integer port = Integer.parseInt(portStr);
     System.out.println("PORT: " + port);
-    Server server = new Server(port);
+    Server server = new Server(HerokuEnv.port());
     ServletContextHandler handler = new ServletContextHandler();
 
      Dao<User> userDao = new UserJdbcDao();
