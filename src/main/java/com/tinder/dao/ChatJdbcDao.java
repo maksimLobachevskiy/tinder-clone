@@ -35,7 +35,16 @@ public class ChatJdbcDao extends DaoImpl<Message> implements Dao<Message> {
       }
     } catch (SQLException e) {
       e.printStackTrace();
-    } return messages;
+    } finally {
+      if (connection != null) {
+        try {
+          connection.close();
+        } catch (SQLException ex) {
+          ex.printStackTrace();
+        }
+      }
+    } 
+    return messages;
   }
 
 
@@ -62,6 +71,14 @@ public class ChatJdbcDao extends DaoImpl<Message> implements Dao<Message> {
       }
     } catch (SQLException e) {
       throw new RuntimeException("Something went wrong");
+    } finally {
+      if (connection != null) {
+        try {
+          connection.close();
+        } catch (SQLException ex) {
+          ex.printStackTrace();
+        }
+      }
     }
     return messages;
   }
@@ -81,6 +98,14 @@ public class ChatJdbcDao extends DaoImpl<Message> implements Dao<Message> {
       preparedStatement.executeUpdate();
     } catch (SQLException e) {
       throw new RuntimeException("Something went wrong");
+    } finally {
+      if (connection != null) {
+        try {
+          connection.close();
+        } catch (SQLException ex) {
+          ex.printStackTrace();
+        }
+      }
     }
   }
 }
